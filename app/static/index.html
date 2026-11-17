@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CheckStock — учёт остатков</title>
+  <link rel="stylesheet" href="/static/style.css">
+  <script src="/static/app.js" defer></script>
+</head>
+<body>
+  <header><div class="header"><a href="/" class="brand"><span>CS</span> CheckStock</a>
+    <nav aria-label="Разделы"><a href="#stock">Остатки</a><a href="#shipments">Движения</a><a href="#warehouses">Склады</a><a href="#history">История</a></nav>
+  </div></header>
+  <main>
+    <div class="intro"><div><h1>Где сейчас товар?</h1><p>Учёт остатков и отправок · 1 магазин</p></div>
+      <button id="new-operation" disabled>＋ Новая операция</button></div>
+    <div id="notice" role="status"></div>
+    <div id="metrics" class="metrics" aria-label="Сводка остатков"></div>
+    <section id="stock"><div class="section-head"><h2>Остатки на складах</h2><input id="search" type="search" placeholder="Поиск по товару или артикулу" aria-label="Поиск по товару или артикулу"></div><div id="balances"></div></section>
+    <section id="shipments"><div class="section-head"><h2>Движения</h2></div><div id="operations"></div></section>
+    <section id="warehouses"><div class="section-head"><h2>Склады фулфилмента</h2><button class="secondary" id="new-warehouse" disabled>＋ Добавить склад</button></div><div id="warehouse-list"></div></section>
+    <section id="history"><div class="section-head"><h2>История товарных операций</h2></div><div id="events"></div></section>
+  </main>
+  <dialog id="operation-dialog">
+    <form id="operation-form">
+      <h2>Новая операция</h2>
+      <label>Тип операции<select name="kind"><option value="receipt">Приход</option><option value="transfer">Перемещение между ФФ</option><option value="fbs">Резерв FBS</option><option value="fbo">Отправка FBO</option></select></label>
+      <label>Товар<select name="sku" required></select></label>
+      <label>Склад<select name="warehouse_id" required></select></label>
+      <label id="destination" hidden>Склад назначения<select name="destination_id"></select></label>
+      <label>Количество, шт.<input name="quantity" type="number" required min="1" max="2147483647" value="1"></label>
+      <p class="form-error" role="alert"></p>
+      <footer><button type="button" class="secondary" data-close>Закрыть</button><button type="submit">Сохранить</button></footer>
+    </form>
+  </dialog>
+  <dialog id="warehouse-dialog">
+    <form id="warehouse-form">
+      <h2></h2>
+      <label>Название склада<input name="name" required maxlength="80"></label>
+      <p class="form-error" role="alert"></p>
+      <footer><button type="button" class="secondary" data-close>Закрыть</button><button type="submit">Сохранить</button></footer>
+    </form>
+  </dialog>
+</body>
+</html>
